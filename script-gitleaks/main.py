@@ -59,8 +59,6 @@ def run_gitleaks():
     password = os.environ['PASS']    # password is retrieved from environment variables
     decrypted_token = decrypt(password, token)
 
-    print(decrypted_token)
-
     link = "https://" + decrypted_token + "@github.com/" + username + "/" + repository + ".git"
 
     # Timestamp
