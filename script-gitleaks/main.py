@@ -1,5 +1,6 @@
 import json
 import subprocess
+import os
 
 from flask import Flask
 from flask import request
@@ -55,7 +56,7 @@ def run_gitleaks():
     token = param['token']
 
     # Password used to generate the secret key and decrypt the token
-    password = "49acbd4a2f49e65454a44b787050a08a"
+    password = os.environ['PASS']    # password is retrieved from environment variables
     decrypted_token = decrypt(password, token)
 
     print(decrypted_token)
