@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 
 # POST request
-@app.post("/gitleaks")
+@app.post("/flawfinder")
 def run_gitleaks():
     # Taking request parameters
     param = request.json
@@ -38,7 +38,7 @@ def run_gitleaks():
 
     # A new shell is opened in order to run the tool to analyse all the file inside the pulled repository
     output = subprocess.run(
-        ['gitleaks detect --no-git -r=' + file_name + ' -s=' + directory_name, '-l'],
+        ['flawfinder --sarif ' + directory_name + ' &> ' + file_name, '-l'],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 
     # The output of the tool is saved
@@ -53,5 +53,5 @@ def run_gitleaks():
     subprocess.run(['rm ' + file_name], shell=True)
     subprocess.run(['rm -r ' + directory_name], shell=True)
 
-    # The json result is returned 
+    # The json result is returned
     return parsed
