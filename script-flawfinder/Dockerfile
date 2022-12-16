@@ -7,8 +7,8 @@ RUN apk add git
 RUN python3 -m ensurepip
 RUN pip3 install flask
 RUN pip3 install pycryptodomex
-RUN pip3 install bandit
-COPY script-bandit/main.py /home/app.py
+RUN pip3 install flawfinder
+COPY script-flawfinder/main.py /home/app.py
 COPY util.py /home/util.py
 WORKDIR /home
 ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]
