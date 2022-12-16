@@ -22,6 +22,8 @@ RUN chmod +x progpilot_v1.0.0.phar
 
 RUN mv progpilot_v1.0.0.phar /usr/local/bin/progpilot
 
+COPY util.py /home/util.py
+
 COPY main.py /home/app.py
 
 ENTRYPOINT ["flask", "run", "--host=0.0.0.0"]
