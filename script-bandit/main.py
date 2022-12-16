@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 # POST request
 @app.post("/bandit")
-def run_gitleaks():
+def run_bandit():
     # Taking request parameters
     param = request.json
     username = param['user']

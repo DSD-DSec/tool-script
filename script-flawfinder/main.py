@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 # POST request
 @app.post("/flawfinder")
-def run_gitleaks():
+def run_flawfinder():
     # Taking request parameters
     param = request.json
     username = param['user']
