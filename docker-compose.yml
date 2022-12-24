@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  bandit:
+    build:
+      context: ./script-bandit
+      dockerfile: Dockerfile
+    ports: 
+      - 5000:5000
+  flawfinder:
+    build:
+      context: ./script-flawfinder
+      dockerfile: Dockerfile
+    ports: 
+      - 5001:5000
+  gitleaks:
+    build:
+      context: ./script-gitleaks
+      dockerfile: Dockerfile
+    ports: 
+      - 5002:5000
+  gokart:
+    build:
+      context: ./script-gokart
+      dockerfile: Dockerfile
+    ports: 
+      - 5003:5000
+  progpilot:
+    build:
+      context: ./script-progpilot
+      dockerfile: Dockerfile
+    ports: 
+      - 5004:5000
+  
