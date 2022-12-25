@@ -1,6 +1,5 @@
 FROM zricethezav/gitleaks:latest
 
-USER root
 RUN apk update
 RUN apk add python3
 RUN python3 -m ensurepip

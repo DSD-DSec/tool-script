@@ -16,15 +16,14 @@ app = Flask(__name__)
 def run_progpilot():
     # Taking request parameters
     param = request.json
-    username = param['user']
-    repository = param['repo']
+    full_repo_name = param['repo']
     token = param['token']
 
     # Password used to generate the secret key and decrypt the token
     password = os.environ['PASS']    # password is retrieved from environment variables
     decrypted_token = util.decrypt(password, token)
 
-    link = "https://" + decrypted_token + "@github.com/" + username + "/" + repository + ".git"
+    link = "https://" + decrypted_token + "@github.com/" + full_repo_name + ".git"
 
     # Timestamp
     ts = str(datetime.now()).split()[1]
@@ -40,9 +39,17 @@ def run_progpilot():
         ['progpilot ' + directory_name + '/'],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
 
+    print(output, flush=True)
+
     # The output of the tool is saved
     result = output.stderr
     result += output.stdout
+
+    output = subprocess.run(
+        ['ls'],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
+
+    print(output, flush=True)
     
     # Clean up progpilot results
     result = result.replace(" ", "")
@@ -56,10 +63,7 @@ def run_progpilot():
     subprocess.run(['rm -r ' + directory_name], shell=True)
 
     # The json result is returned
-    try:
-        return json.loads(result)
-    except:
-        return json.loads("[]")
+    return json.loads(result)
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))

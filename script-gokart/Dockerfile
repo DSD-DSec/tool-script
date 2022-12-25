@@ -1,6 +1,5 @@
-FROM golang:1.20rc1-alpine3.17
+FROM golang:1.19-alpine
 
-USER root
 RUN apk update
 RUN apk add python3
 RUN apk add git

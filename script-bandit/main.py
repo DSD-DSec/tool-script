@@ -17,15 +17,14 @@ app = Flask(__name__)
 def run_bandit():
     # Taking request parameters
     param = request.json
-    username = param['user']
-    repository = param['repo']
+    full_repo_name = param['repo']
     token = param['token']
 
     # Password used to generate the secret key and decrypt the token
     password = os.environ['PASS']    # password is retrieved from environment variables
     decrypted_token = util.decrypt(password, token)
 
-    link = "https://" + decrypted_token + "@github.com/" + username + "/" + repository + ".git"
+    link = "https://" + decrypted_token + "@github.com/" + full_repo_name + ".git"
 
     # Timestamp
     ts = str(datetime.now()).split()[1]

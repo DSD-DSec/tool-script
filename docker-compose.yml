@@ -5,30 +5,40 @@ services:
     build:
       context: ./script-bandit
       dockerfile: Dockerfile
+    environment:
+      - PASS=49acbd4a2f49e65454a44b787050a08a
     ports: 
       - 5000:5000
   flawfinder:
     build:
       context: ./script-flawfinder
       dockerfile: Dockerfile
+    environment:
+      - PASS=49acbd4a2f49e65454a44b787050a08a
     ports: 
       - 5001:5000
   gitleaks:
     build:
       context: ./script-gitleaks
       dockerfile: Dockerfile
+    environment:
+      - PASS=49acbd4a2f49e65454a44b787050a08a
     ports: 
       - 5002:5000
   gokart:
     build:
       context: ./script-gokart
       dockerfile: Dockerfile
+    environment:
+      - PASS=49acbd4a2f49e65454a44b787050a08a
     ports: 
       - 5003:5000
   progpilot:
     build:
       context: ./script-progpilot
       dockerfile: Dockerfile
+    environment:
+      - PASS=49acbd4a2f49e65454a44b787050a08a
     ports: 
       - 5004:5000
   

@@ -15,15 +15,14 @@ app = Flask(__name__)
 def run_gokart():
     # Taking request parameters
     param = request.json
-    username = param['user']
-    repository = param['repo']
+    full_repo_name = param['repo']
     token = param['token']
 
     # Password used to generate the secret key and decrypt the token
     password = os.environ['PASS']    # password is retrieved from environment variables
     decrypted_token = util.decrypt(password, token)
 
-    link = "https://" + decrypted_token + "@github.com/" + username + "/" + repository + ".git"
+    link = "https://" + decrypted_token + "@github.com/" + full_repo_name + ".git"
 
     # Timestamp
     ts = str(datetime.now()).split()[1]
@@ -36,9 +35,17 @@ def run_gokart():
     subprocess.run(['git clone ' + link + ' ' + directory_name, '-l'], shell=True)
 
     # A new shell is opened in order to run the tool to analyse all the file inside the pulled repository
-    subprocess.run(
+    output = subprocess.run(
         ['gokart scan -j -o ' + file_name + ' ' + directory_name + '/'],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+
+    print(output, flush=True)
+
+    output = subprocess.run(
+        ['ls'],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, text=True)
+
+    print(output, flush=True)
 
     # The analysis result is taken from the json file
     out = open(file_name)
