@@ -1,4 +1,4 @@
-FROM php:8.2-alpine
+FROM php:7.4-alpine
 
 RUN apk update
 RUN apk add python3
